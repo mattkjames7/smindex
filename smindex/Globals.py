@@ -28,9 +28,13 @@ idtype = [	('Date','int32'),			#Date in the format yyyymmdd
 			('SME','float32'),			#Global SME index
 			('SML','float32'),			#Global SML index
 			('SMU','float32'),			#Global SMU index
-			('SMEr','float32',(23,)),	#Regional SME index 
-			('SMLr','float32'(23,)),	#Regional SML index
-			('SMUr','float32'(23,)),	#Regional SMU index
+			('MLTSML','float32'),			#Global SML index MLT
+			('MLTSMU','float32'),			#Global SMU index MLT
+			('MLATSML','float32'),			#Global SML index Latitude
+			('MLATSMU','float32'),			#Global SMU index Latitude
+			('SMEr','float32',(24,)),	#Regional SME index 
+			('SMLr','float32',(24,)),	#Regional SML index
+			('SMUr','float32',(24,)),	#Regional SMU index
 			('SMR','float32'),			#Global SMR index
 			('SMR00','float32'),		#SMR near midnight
 			('SMR06','float32'),		#SMR near dawn
