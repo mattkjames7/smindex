@@ -162,26 +162,25 @@ def ReadSMIFile(fname):
 	#set success to False
 	success = False
 	
-	#try:
-	if True:
+	try:
 		#read the file in
 		lines = pf.ReadASCIIFile(fname)
-		print('here')
+
 		#extract data and column header
 		columns,lines = _RemoveHeader(lines)
-		print('here')
+
 		#split column names
 		columns = _NameColumns(columns)
-		print('here')
+
 		#get data dictionary
 		dct = _DataDict(columns,lines)
-		print('here')
+
 		#convert to recarray
 		data = _DataRecarray(dct)
-		print('here')
+
 		success = True
-	#except:
-	#	print('Reading file failed: {:s}'.format(fname))
-	#	data = np.recarray(0,dtype=Globals.idtype)
+	except:
+		print('Reading file failed: {:s}'.format(fname))
+		data = np.recarray(0,dtype=Globals.idtype)
 	
 	return data,success

@@ -9,10 +9,13 @@ try:
 	#if this is successful - now check whether the subdirectories exist
 	dlddir = DataPath + 'download/'
 	bindir = DataPath + 'binary/'
+	tmpdir = DataPath + 'temp/'
 	if not os.path.isdir(dlddir):
 		os.system('mkdir -pv '+dlddir)
 	if not os.path.isdir(bindir):
 		os.system('mkdir -pv '+bindir)
+	if not os.path.isdir(tmpdir):
+		os.system('mkdir -pv '+tmpdir)
 except:
 	print('Please set SMINDEX_PATH environment variable')
 	DataPath = ''
