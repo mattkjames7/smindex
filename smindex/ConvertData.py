@@ -74,7 +74,7 @@ def ConvertData(files=None,Overwrite='ask'):
 		#look for new files with the same years
 		use = np.zeros(nf,dtype='bool')
 		for j in range(0,nf):
-			use[i] = uyears[i] in years[j]
+			use[j] = uyears[i] in years[j]
 		use = np.where(use)[0]
 		
 		#count up the number of records
