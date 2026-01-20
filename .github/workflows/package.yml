@@ -28,7 +28,6 @@ jobs:
         python3 -m venv env
         source env/bin/activate
         pip install setuptools wheel pytest
-        pip install -r requirements.txt
 
     - name: Build package
       run: |
@@ -42,7 +41,7 @@ jobs:
         path: dist/
 
     - name: Run tests
-      if: ${{ github.event.inputs.run_tests == 'true' }}
+      if: ${{ github.event.inputs.run_tests == 'true' || github.event_name == 'push' }}
       run: |
         export SMINDEX_PATH="$(pwd)/.data"
         cat >$SMINDEX_PATH/config.json <<EOF
@@ -51,5 +50,6 @@ jobs:
         }
         EOF
         source env/bin/activate
+        pip install -r requirements.txt
         cd tests
         pytest .
