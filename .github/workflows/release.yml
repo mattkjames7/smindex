@@ -42,7 +42,7 @@ jobs:
       - name: Get Version from __init__.py
         id: get_version
         run: |
-          version=$(python3 -c "import smindex; print(smindex.__version__)")
+          version=v$(python3 -c "from get_version import get_version; print(get_version())")
           echo "Version: $version"
           echo "version=v$version" >> $GITHUB_OUTPUT
           echo "pkg=smindex-$version-py3-none-any.whl" >> $GITHUB_ENV
