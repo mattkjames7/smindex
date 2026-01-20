@@ -10,6 +10,8 @@ on:
         required: false
         default: true
 
+run-name: Build and test smindex package
+
 jobs:
   package:
     runs-on: ubuntu-latest
@@ -52,5 +54,6 @@ jobs:
         EOF
         source env/bin/activate
         pip install -r requirements.txt
+        pip install dist/smindex-*.whl
         cd tests
         pytest .
