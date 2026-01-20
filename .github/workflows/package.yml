@@ -1,7 +1,6 @@
 name: Package smindex
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       run_tests:
@@ -9,6 +8,8 @@ on:
         description: 'Run tests after packaging'
         required: false
         default: true
+  schedule:
+    - cron: '0 0 1 * *'  # Runs at midnight UTC on the 1st of every month
 
 run-name: Build and test smindex package
 
@@ -43,7 +44,7 @@ jobs:
         path: dist/
 
     - name: Run tests
-      if: ${{ github.event.inputs.run_tests == 'true' || github.event_name == 'push' }}
+      if: ${{ github.event.inputs.run_tests == 'true' || github.event_name == 'schedule' }}
       run: |
         export SMINDEX_PATH="$(pwd)/.data"
         mkdir -p $SMINDEX_PATH
