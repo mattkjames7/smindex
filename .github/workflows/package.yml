@@ -1,0 +1,48 @@
+name: Package smindex
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      run_tests:
+        type: boolean
+        description: 'Run tests after packaging'
+        required: false
+        default: true
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    name: Build and test package
+
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548  # v6.1.0
+      with:
+        python-version: '3.14'
+
+    - name: Install dependencies
+      run: |
+        python3 -m venv env
+        source env/bin/activate
+        pip install setuptools wheel pytest
+        pip install -r requirements.txt
+
+    - name: Build package
+      run: |
+        source env/bin/activate
+        python3 setup.py bdist_wheel
+
+    - name: Upload package artifact
+      uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f  # v6.0.0
+      with:
+        name: smindex-package
+
+    - name: Run tests
+      if: ${{ github.event.inputs.run_tests == 'true' }}
+      run: |
+        source env/bin/activate
+        cd tests
+        pytest .
