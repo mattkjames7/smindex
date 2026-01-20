@@ -22,9 +22,9 @@ setuptools.setup(
     ],
     install_requires=[
 		'numpy',
-		'RecarrayTools',
-		'PyFileIO',
 		'DateTimeTools',
+        'requests',
+        'tqdm',
 	],
 )
 
