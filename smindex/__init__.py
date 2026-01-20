@@ -1,3 +1,4 @@
+__version__ = "2.0.0"
 from . import _globals
 from . import api
 from .database import SMIDatabase
