@@ -44,6 +44,7 @@ jobs:
       if: ${{ github.event.inputs.run_tests == 'true' || github.event_name == 'push' }}
       run: |
         export SMINDEX_PATH="$(pwd)/.data"
+        mkdir -p $SMINDEX_PATH
         cat >$SMINDEX_PATH/config.json <<EOF
         {
             "username": "${{ secrets.USERNAME }}",
