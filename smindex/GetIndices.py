@@ -1,6 +1,6 @@
 import numpy as np
 from .ReadBinary import ReadBinary
-from . import Globals
+from . import _globals
 
 def GetIndices(Year):
 	'''
@@ -34,7 +34,7 @@ def GetIndices(Year):
 		n += ReadBinary(yrs[i],size=True)
 		
 	#create the output array
-	data = np.recarray(n,dtype=Globals.idtype)
+	data = np.recarray(n,dtype=_globals.idtype)
 	
 	#fill it
 	p = 0

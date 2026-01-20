@@ -1,5 +1,5 @@
 import numpy as np
-from . import Globals
+from . import _globals
 import RecarrayTools as RT
 import os
 
@@ -14,12 +14,12 @@ def ReadSubstorms():
 	
 	'''
 	#get the file name
-	fname = Globals.DataPath + 'Substorms.bin'	
+	fname = _globals.DataPath + 'Substorms.bin'	
 	
 	#check it exists
 	if not os.path.isfile(fname):
 		print('No substorm list found - please run smindex.UpdateSubstorms()')
 		return None
 	
-	return RT.ReadRecarray(fname,Globals.sdtype)
+	return RT.ReadRecarray(fname,_globals.substorm_dtype)
 	

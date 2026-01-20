@@ -1,5 +1,5 @@
 import numpy as np
-from . import Globals
+from . import _globals
 import PyFileIO as pf
 import DateTimeTools as TT
 
@@ -72,7 +72,7 @@ def ReadSSList(fname):
 	n = lines.size
 	
 	#now create output recarray
-	data = np.recarray(n,dtype=Globals.sdtype)
+	data = np.recarray(n,dtype=_globals.substorm_dtype)
 	
 	#separate each line
 	s = np.array([l.split() for l in lines])

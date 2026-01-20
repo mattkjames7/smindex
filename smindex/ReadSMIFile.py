@@ -1,5 +1,5 @@
 import numpy as np
-from . import Globals
+from . import _globals
 import DateTimeTools as TT
 import PyFileIO as pf
 
@@ -111,7 +111,7 @@ def _DataRecarray(dct):
 	utc = TT.ContUT(Date,ut)
 	
 	#create output recarray
-	data = np.recarray(Date.size,dtype=Globals.idtype)
+	data = np.recarray(Date.size,dtype=_globals.idtype)
 	data.fill(np.nan)
 	
 	#fill in the date and time fields
@@ -181,6 +181,6 @@ def ReadSMIFile(fname):
 		success = True
 	except:
 		print('Reading file failed: {:s}'.format(fname))
-		data = np.recarray(0,dtype=Globals.idtype)
+		data = np.recarray(0,dtype=_globals.idtype)
 	
 	return data,success

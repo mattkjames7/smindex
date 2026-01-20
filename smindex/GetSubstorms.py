@@ -1,5 +1,5 @@
 import numpy as np
-from . import Globals
+from . import _globals
 from .ReadSubstorms import ReadSubstorms
 
 def GetSubstorms(Date=None):
@@ -21,10 +21,10 @@ def GetSubstorms(Date=None):
 		Substorm list
 	'''
 	
-	if Globals.Substorms is None:
-		Globals.Substorms = ReadSubstorms()
+	if _globals.Substorms is None:
+		_globals.Substorms = ReadSubstorms()
 	
-	out = Globals.Substorms
+	out = _globals.Substorms
 	
 	if Date is None:
 		pass

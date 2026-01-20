@@ -2,7 +2,7 @@ import numpy as np
 from .ListFiles import ListFiles
 from .ReadSMIFile import ReadSMIFile
 import os
-from . import Globals
+from . import _globals
 from .ReadBinary import ReadBinary
 import RecarrayTools as RT
 
@@ -19,7 +19,7 @@ def ConvertData(files=None,Overwrite='ask'):
 	
 	#list the files
 	if files is None:
-		files = ListFiles(Globals.DataPath+'download/')
+		files = ListFiles(_globals.DataPath+'download/')
 	else:
 		files = np.array([files]).flatten()
 		nf = np.size(files)
@@ -43,7 +43,7 @@ def ConvertData(files=None,Overwrite='ask'):
 		bname = os.path.basename(files[i])
 		
 		#output name and path
-		tname = Globals.tmpdir + bname + '.bin'
+		tname = _globals.tmpdir + bname + '.bin'
 		tmpnames[i] = tname
 		
 		#convert the data
@@ -61,7 +61,7 @@ def ConvertData(files=None,Overwrite='ask'):
 			years.append(np.array([]))
 
 	#list existing year files
-	_,efiles = ListFiles(Globals.bindir,ReturnNames=True)
+	_,efiles = ListFiles(_globals.bindir,ReturnNames=True)
 	eyears = np.array([np.int32(e[:4]) for e in efiles])
 		
 	#get the list of years in the new files
@@ -83,7 +83,7 @@ def ConvertData(files=None,Overwrite='ask'):
 			n += ReadBinary(tmpnames[use[j]],size=True)
 		
 		#create recarray
-		ndata = np.recarray(n,dtype=Globals.idtype)
+		ndata = np.recarray(n,dtype=_globals.idtype)
 		
 		#fill it
 		p = 0
@@ -92,7 +92,7 @@ def ConvertData(files=None,Overwrite='ask'):
 			ndata[p:p+tmp.size] = tmp
 			p += tmp.size
 		
-		oname = Globals.bindir + '{:04d}.bin'.format(uyears[i])
+		oname = _globals.bindir + '{:04d}.bin'.format(uyears[i])
 		
 		#check if this date exists in binary folder already
 		if uyears[i] in eyears:

@@ -1,6 +1,6 @@
 import numpy as np
 from .ListFiles import ListFiles
-from . import Globals
+from . import _globals
 import RecarrayTools as RT
 import os
 from .ReadSSList import ReadSSList
@@ -14,7 +14,7 @@ def UpdateSubstorms():
 	'''
 	
 	#list the files
-	files = ListFiles(Globals.subdir)
+	files = ListFiles(_globals.subdir)
 	nf = files.size
 	print('Found {:d} files...'.format(nf))
 	
@@ -32,7 +32,7 @@ def UpdateSubstorms():
 	
 	#now create the output data object
 	print('Found {:d} substorms'.format(n))
-	data = np.recarray(n,dtype=Globals.sdtype)
+	data = np.recarray(n,dtype=_globals.substorm_dtype)
 	
 	#fill it
 	p = 0
@@ -66,6 +66,6 @@ def UpdateSubstorms():
 	data = data[srt]
 		
 	#now save it
-	fname = Globals.DataPath + 'Substorms.bin'
+	fname = _globals.DataPath + 'Substorms.bin'
 	print('Saving file {:s}'.format(fname))
 	RT.SaveRecarray(data,fname)

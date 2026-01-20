@@ -1,6 +1,6 @@
 import numpy as np
 import RecarrayTools as RT
-from . import Globals
+from . import _globals
 
 
 def ReadBinary(f,size=False):
@@ -31,7 +31,7 @@ def ReadBinary(f,size=False):
 		fname = f
 	else:
 		#we have a year (in theory)
-		fname = Globals.bindir + '{:04d}.bin'.format(f)
+		fname = _globals.bindir + '{:04d}.bin'.format(f)
 	
 	#read the data
 	if size:
@@ -39,6 +39,6 @@ def ReadBinary(f,size=False):
 		out = np.fromfile(F,dtype='int32',count=1)[0]
 		F.close()
 	else:
-		out = RT.ReadRecarray(fname,Globals.idtype)
+		out = RT.ReadRecarray(fname,_globals.idtype)
 	
 	return out
