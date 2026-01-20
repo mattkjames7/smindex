@@ -49,7 +49,7 @@ jobs:
         mkdir -p $SMINDEX_PATH
         cat >$SMINDEX_PATH/config.json <<EOF
         {
-            "username": "${{ secrets.USERNAME }}",
+            "username": "${{ secrets.USERNAME }}"
         }
         EOF
         source env/bin/activate
