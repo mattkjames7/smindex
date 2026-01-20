@@ -23,7 +23,7 @@ jobs:
     name: Build and Test Package
     uses: ./.github/workflows/package.yml
     with:
-      test: true
+      run_tests: true
     secrets: inherit
 
   release:
