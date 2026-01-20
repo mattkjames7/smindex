@@ -2,8 +2,25 @@ from datetime import datetime
 from typing import List
 
 
-def get_index_url(username: str, start_time: datetime | List[int] | str, duration: int | float):
-    print(username, start_time, duration)
+def get_index_url(username: str, start_time: datetime | List[int] | str, duration: int | float) -> str:
+    """
+    Construct the URL to download SMI indices from SuperMAG.
+
+    Inputs
+    ======
+    username : str
+        SuperMAG username.
+    start_time : datetime | List[int] | str
+        Start time as a datetime object, list of integers [year, month, day, hour, minute], or ISO format string.
+    duration : int | float
+        Duration in minutes for which to download data.
+
+    Outputs
+    =======
+    url : str
+        Constructed URL for downloading SMI indices.
+    """
+
     if isinstance(start_time, list):
         start_time = datetime(*start_time)
     start = datetime.strftime(start_time, "%Y-%m-%dT%H:%M")
@@ -42,7 +59,26 @@ def get_substorm_url(
     start_time: datetime | List[int] | str,
     end_time: datetime | List[int] | str,
     list_type: str = "newell"
-):
+) -> str:
+    """
+    Construct the URL to download substorm data from SuperMAG.
+
+    Inputs
+    ======
+    username : str
+        SuperMAG username.
+    start_time : datetime | List[int] | str
+        Start time as a datetime object, list of integers [year, month, day, hour, minute], or ISO format string.
+    end_time : datetime | List[int] | str
+        End time as a datetime object, list of integers [year, month, day, hour, minute], or ISO format string.
+    list_type : str, optional
+        Type of substorm list to download. Default is "newell".
+    
+    Outputs
+    =======
+    url : str
+        Constructed URL for downloading substorm data.
+    """
 
     valid_list_types = ["newell", "liou", "frey", "ohtani", "forsyth"]
     if list_type not in valid_list_types:
@@ -62,14 +98,3 @@ def get_substorm_url(
     url += f"&downloadtype=substorm_list&user={username}&fmt={fmt}&start={start}&end={end}&list={list_type}"
 
     return url
-
-"""
-can do 25 years, it seems
-for substorms:
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=ascii&start=2001-01-01T00:00:00.000Z&end=2001-01-02T00:00:00.000Z&list=newell
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=ascii&start=2001-01-01T00:00:00.000Z&end=2002-01-02T00:00:00.000Z&list=newell
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=csv&start=2001-01-01T00:00:00.000Z&end=2001-01-01T23:59:00.000Z&list=liou
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=csv&start=2001-01-01T00:00:00.000Z&end=2001-01-01T23:59:00.000Z&list=frey
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=csv&start=2001-01-01T00:00:00.000Z&end=2001-01-01T23:59:00.000Z&list=ohtani
-https://supermag.jhuapl.edu/lib/services/?service=substorms&downloadtype=substorm_list&user=mj102&fmt=csv&start=2001-01-01T00:00:00.000Z&end=2001-01-01T23:59:00.000Z&list=forsyth
-"""

@@ -2,7 +2,7 @@ import json
 from ._globals import config, config_file
 
 
-def update_config(**kwargs):
+def update_config(**kwargs: dict) -> None:
     """
     Update the configuration settings for the SMI index module.
 
@@ -25,7 +25,7 @@ def update_config(**kwargs):
         json.dump(config, f, indent=2)
 
 
-def set_username():
+def set_username() -> str:
     """
     Prompt the user to input their SuperMAG username and update the config.
 

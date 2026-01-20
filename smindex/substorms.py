@@ -1,8 +1,8 @@
 from ._globals import db, substorm_dtype
 import numpy as np
+from typing import Optional
 
-
-def substorms(start_date=None, end_date=None, list_type=None):
+def substorms(start_date: Optional[int]=None, end_date: Optional[int]=None, list_type: Optional[str]=None) -> np.ndarray:
     """
     Retrieve substorm data for a specified date range.
 

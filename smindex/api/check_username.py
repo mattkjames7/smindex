@@ -2,7 +2,15 @@ from .._globals import config
 from ..update_config import set_username
 
 
-def check_username():
+def check_username() -> str:
+    """
+    Check if a SuperMAG username is set in the configuration. If not, prompt the user to set one.
+
+    Returns
+    =======
+    username : str
+        The SuperMAG username.
+    """
 
     username = config.get('username', None)
     if username is None:

@@ -6,7 +6,24 @@ import DateTimeTools as dtt
 from tqdm import tqdm
 
 
-def _normalize_date_input(date_input):
+def _normalize_date_input(date_input: datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]) -> tuple[int, float, bool]:
+    """
+    Normalize various date input types to a standard format.
+
+    Inputs
+    ======
+    date_input : datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]
+        Input date in various possible formats. If a tuple is provided, it should be (date: int YYYYMMDD, ut: float hours).
+
+    Outputs
+    =======
+    date : int
+        Date in YYYYMMDD format.
+    timestamp : float
+        Corresponding Unix timestamp.
+    has_time : bool
+        Indicates whether the input included a specific time component.
+    """
 
     has_time = False
     if isinstance(date_input, tuple):
@@ -35,7 +52,11 @@ def _normalize_date_input(date_input):
     return date, timestamp, has_time
 
 
-def indices(start, end=None, overwrite=False):
+def indices(
+    start: datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float],
+    end: datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float] = None,
+    overwrite: bool = False
+) -> np.recarray:
     """
 
     Input options:

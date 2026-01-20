@@ -1,9 +1,24 @@
 import numpy as np
 import DateTimeTools as dtt
 from . import _globals
+from typing import List
 
 
-def convert_index_data(json_data):
+def convert_index_data(json_data: List[dict]) -> np.recarray:
+    """
+    Convert JSON data of indices into a structured numpy recarray.
+    
+    Inputs
+    ======
+    json_data : List[dict]
+        List of dictionaries containing index data.
+
+    Outputs
+    =======
+    data : np.recarray
+        Structured numpy recarray with fields defined in _globals.smi_dtype.
+    
+    """
 
     n = len(json_data)
     data = np.recarray(n, dtype=_globals.smi_dtype)

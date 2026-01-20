@@ -91,6 +91,5 @@ substorm_dtype = [
     ("source", "U6"),          # Substorm list it came from:
 ]  
 
-
 # this is where the substorm list will be stored in memory
 substorms = None

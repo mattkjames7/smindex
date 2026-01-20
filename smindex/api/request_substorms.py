@@ -5,19 +5,23 @@ from .check_username import check_username
 import csv
 
 
-def request_substorms(start_date, end_date, list_type="newell"):
+def request_substorms(start_date: int, end_date: int, list_type: str = "newell") -> list[dict]:
     """
     Request SMI index data for a specific date.
 
     Inputs
     ======
-    date : int
-        Date in YYYYMMDD format.
+    start_date : int
+        Start date in YYYYMMDD format.
+    end_date : int
+        End date in YYYYMMDD format.
+    list_type : str, optional
+        Type of substorm list to download. Default is "newell".
 
     Returns
     =======
-    data: json
-        JSON response containing the SMI index data for the specified date.
+    data: list of dict
+        List of dictionaries containing the substorm data for the specified date range.
     """
 
     username = check_username()

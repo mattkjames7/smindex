@@ -5,7 +5,7 @@ import DateTimeTools as dtt
 import requests
 
 
-def request_indices(date):
+def request_indices(date: int) -> dict:
     """
     Request SMI index data for a specific date.
 

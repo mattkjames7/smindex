@@ -1,9 +1,25 @@
 import numpy as np
 import datetime
+from pyparsing import List
 from ._globals import substorm_dtype
 
 
-def convert_substorm_data(csv_data, source):
+def convert_substorm_data(csv_data: List[dict], source: str) -> np.recarray:
+    """
+    Convert CSV data of substorms into a structured numpy recarray.
+
+    Inputs
+    ======
+    csv_data : List[dict]
+        List of dictionaries containing substorm data.
+    source : str
+        Source identifier for the substorm list.
+
+    Outputs
+    =======
+    data : np.recarray
+        Structured numpy recarray with fields defined in substorm_dtype.
+    """
 
     n = len(csv_data)
     data = np.recarray(n, dtype=substorm_dtype)

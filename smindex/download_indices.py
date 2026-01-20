@@ -4,7 +4,7 @@ from .convert_index_data import convert_index_data
 import numpy as np
 
 
-def download_indices(date, overwrite=False, quiet=False):
+def download_indices(date: int, overwrite: bool = False, quiet: bool = False) -> np.recarray:
     """
     Download SMI data for a specific date if not already present in the database.
 
@@ -17,8 +17,8 @@ def download_indices(date, overwrite=False, quiet=False):
 
     Returns
     =======
-    path : str
-        Path to the downloaded SMI data file.
+    data : np.recarray
+        Structured numpy recarray containing the index data for the specified date.
     """
 
     existing_entry = db.get_date(date)
