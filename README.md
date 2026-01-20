@@ -25,7 +25,7 @@ pip3 install dist/smindex-2.0.0-py3-none-any.whl --user
 Then set up an environment variable which point to where you want to store the data in your `~/.bashrc` file:
 
 ```bash
-export SMINDEX_PATH = /path/to/smindex/data
+export SMINDEX_PATH="/path/to/smindex/data"
 ```
 
 If this is not set, then the default path will be `~/.smindex`.
