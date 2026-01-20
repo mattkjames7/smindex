@@ -73,7 +73,7 @@ def get_substorm_url(
         End time as a datetime object, list of integers [year, month, day, hour, minute], or ISO format string.
     list_type : str, optional
         Type of substorm list to download. Default is "newell".
-    
+
     Outputs
     =======
     url : str

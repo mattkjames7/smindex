@@ -23,7 +23,7 @@ def get_date_range(list_type: str) -> tuple[int, int]:
     ======
     list_type : str
         Type of substorm list. Must be one of the keys in substorm_ranges.
-    
+
     Outputs
     =======
     start_date : int

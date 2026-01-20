@@ -7,7 +7,7 @@ from typing import List
 def convert_index_data(json_data: List[dict]) -> np.recarray:
     """
     Convert JSON data of indices into a structured numpy recarray.
-    
+
     Inputs
     ======
     json_data : List[dict]
@@ -17,7 +17,6 @@ def convert_index_data(json_data: List[dict]) -> np.recarray:
     =======
     data : np.recarray
         Structured numpy recarray with fields defined in _globals.smi_dtype.
-    
     """
 
     n = len(json_data)

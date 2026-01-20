@@ -6,14 +6,17 @@ import DateTimeTools as dtt
 from tqdm import tqdm
 
 
-def _normalize_date_input(date_input: datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]) -> tuple[int, float, bool]:
+def _normalize_date_input(
+    date_input: datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]
+) -> tuple[int, float, bool]:
     """
     Normalize various date input types to a standard format.
 
     Inputs
     ======
     date_input : datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]
-        Input date in various possible formats. If a tuple is provided, it should be (date: int YYYYMMDD, ut: float hours).
+        Input date in various possible formats. If a tuple is provided, it should be
+        (date: int YYYYMMDD, ut: float hours).
 
     Outputs
     =======
@@ -58,12 +61,21 @@ def indices(
     overwrite: bool = False
 ) -> np.recarray:
     """
+    Retrieve SMI index data for a specified date or date range.
 
-    Input options:
-    start =  datetime.date | int (YYYYMMDD) | datetime.datetime AND end = None -> single day of data
-    start = datetime.date | int (YYYYMMDD)  AND end = datetime.date | int (YYYYMMDD) -> full days of data in whole range inclusive
-    start AND/OR end are of type [datetime.datetime OR (int, float)] AND end is not None -> limit to within time range
+    Inputs
+    ======
+    start : datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float]
+        Start date in various formats. If a tuple is provided, it should be (date: int YYYYMMDD, ut: float hours).
+    end : datetime.date | datetime.datetime | np.datetime64 | int | tuple[int, float], optional
+        End date in various formats. If None, retrieves data for a single day.
+    overwrite : bool, optional
+        If True, forces re-download of data even if it already exists locally.
 
+    Returns
+    =======
+    data : np.recarray
+        Structured array containing SMI index data within the specified date range.
     """
 
     # normalize inputs

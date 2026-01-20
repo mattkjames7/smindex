@@ -23,10 +23,10 @@ def request_indices(date: int) -> dict:
     username = config.get('username', None)
     if username is None:
         username = set_username()
-    
+
     if not username:
         raise ValueError("A SuperMAG username is required to request data. Please set it in the configuration.")
-    
+
     year, month, day = dtt.DateSplit(date)
 
     url = get_index_url(username, [year[0], month[0], day[0]], 86400)

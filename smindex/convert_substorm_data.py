@@ -1,6 +1,6 @@
 import numpy as np
 import datetime
-from pyparsing import List
+from typing import List
 from ._globals import substorm_dtype
 
 

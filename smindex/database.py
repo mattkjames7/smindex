@@ -45,7 +45,7 @@ class SMIDatabase:
     def __init__(self, db_path: str) -> None:
         """
         Initialize the database connection and create tables if they don't exist.
-        
+
         Inputs
         ======
         db_path : str
@@ -137,7 +137,7 @@ class SMIDatabase:
         Outputs
         =======
         existing_dates : set of int
-            Set of dates that already exist in the database. 
+            Set of dates that already exist in the database.
         """
         dates = [int(d) for d in dates]
         placeholders = ','.join("?" for _ in dates)
@@ -147,7 +147,7 @@ class SMIDatabase:
         results = self.cursor.fetchall()
         print(results)
         return {row[0] for row in results}
-    
+
     def insert_substorms(self, data: np.recarray) -> None:
         """
         Insert substorm event data into the database.
