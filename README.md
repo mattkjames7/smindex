@@ -1,5 +1,5 @@
 # smindex
-A tiny module for reading SuperMAG indices and substorm lists.
+A tiny module for downloading and reading SuperMAG indices and substorm lists.
 
 For the SuperMAG data visit https://supermag.jhuapl.edu/indices
 
@@ -19,73 +19,61 @@ Or by cloning and building this repository:
 git clone https://github.com/mattkjames7/smindex
 cd smindex
 python3 setup.py bdist_wheel
-pip3 install dist/smindex-1.0.0-py3-none-any.whl --user
+pip3 install dist/smindex-2.0.0-py3-none-any.whl --user
 ```
 
 Then set up an environment variable which point to where you want to store the data in your `~/.bashrc` file:
 
 ```bash
-export SMINDEX_PATH = /path/to/smindex/data/
+export SMINDEX_PATH="/path/to/smindex/data"
 ```
 
-## Downloading Indices
+If this is not set, then the default path will be `~/.smindex`.
 
-For best results, visit the indices page on the SuperMAG website and select the following indices to download:
+## Downloading and Reading SuperMAG Indices
 
-SME U/L, SME, SME MLT, SME MLAT, SME LT, SMU LT, SML LT, SMR, SMR LT
-
-(follow this link: https://supermag.jhuapl.edu/indices/?layers=SMR.LT,SMR,SMER.L,SMER.U,SMER.E,SME.MLAT,SME.MLT,SME.E,SME.UL&fidelity=low&start=2001-01-30T00%3A00%3A00.000Z&step=14400&tab=download)
-
-The data format should be ASCII and ideally download full year files.
-
-These data files should then be placed in the directory `$SMINDEX_PATH/download` where they can be processed.
-
-They can be converted to a binary format which is quick to read:
+SuperMAG indices are downloaded automatically when requested by  the `indices()` function. For example, to get the SME index for January 2005:
 
 ```python
 import smindex
-smindex.ConvertData()
+
+# a single day of data
+data = smindex.indices(20240101)
+
+# a range of dates
+data = smindex.indices(20240101, 20240131)
+
+# a range of dates and times as tuples
+data = smindex.indices((20240101, 12.0), (20240102, 23.75))
+
+# or using datetime objects
+from datetime import datetime
+
+start = datetime(2024,1,1,0,0,0)
+end = datetime(2024,1,31,23,59,59)
+data = smindex.indices(start, end)
 ```
 
-## Read Indices
+## Downloading and Reading Substorm Lists
 
-Use the `smindex.GetIndices`function to read the converted index files:
-
-```python 
-#Read a single year file
-data = smindex.GetData(2005)
-
-#or a range of years
-data = smindex.GetData([2005,2008])
-```
-
-
-
-## Downloading Substorm Lists
-
-Substorm lists (by Frey et al., 2004 and 2006; Liou 2010; Newell and Gjerloev, 2011; Forsyth et al., 2015; Ohtani and Gjerloev, 2020) can be downloaded from the following page: https://supermag.jhuapl.edu/substorms/?tab=download
-
-The ASCII file format is readable by this module. The files should be placed in `$SMINDEX_PATH/substorms`.
-
-Once you have all of the data files, they can be combined using the following function:
+Substorm lists (by Frey et al., 2004 and 2006; Liou 2010; Newell and Gjerloev, 2011; Forsyth et al.,
+2015; Ohtani and Gjerloev, 2020) can be downloaded using the `download_substorms()` function:
 
 ```python
-smindex.UpdateSubstorms()
+smindex.download_substorms()
 ```
 
-## Reading Substorms
-
-The best way to read the substorm lists is to use the `GetSubstorms` function:
+To read in the substorms, use the `substorms()` function:
 
 ```python
-#get everything:
-ss = smindex.GetSubstorms()
+# read the whole database
+data = smindex.substorms()
 
-#get a single date (25th January 2005 in this case)
-ss = smindex.GetSubstorms(Date=20050125)
+# read substorms in a date range
+data = smindex.substorms(start_date=20220101, end_date=20221231)
 
-#get a range of dates
-ss = smindex.GetSubstorms(Date=[20050101,20050125])
+# read substorms from a specific list
+data = smindex.substorms(list_type='frey2004')
 ```
 
 ## References
