@@ -8,6 +8,13 @@ on:
         description: 'Run tests after packaging'
         required: false
         default: true
+  workflow_call:
+    inputs:
+      run_tests:
+        type: boolean
+        description: 'Run tests after packaging'
+        required: false
+        default: true
   schedule:
     - cron: '0 0 1 * *'  # Runs at midnight UTC on the 1st of every month
 

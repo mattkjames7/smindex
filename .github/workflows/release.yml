@@ -23,7 +23,7 @@ jobs:
     name: Build and Test Package
     uses: ./.github/workflows/package.yml
     with:
-      test: true
+      run_tests: true
     secrets: inherit
 
   release:
@@ -42,10 +42,11 @@ jobs:
       - name: Get Version from __init__.py
         id: get_version
         run: |
-          version=$(python3 -c "import smindex; print(smindex.__version__)")
-          echo "Version: $version"
-          echo "version=v$version" >> $GITHUB_OUTPUT
-          echo "pkg=smindex-$version-py3-none-any.whl" >> $GITHUB_ENV
+          ver="$(python3 -c "from get_version import get_version; print(get_version())")"
+          tag="v$ver"
+          echo "Version: $ver"
+          echo "version=$tag" >> "$GITHUB_OUTPUT"
+          echo "pkg=smindex-$ver-py3-none-any.whl" >> "$GITHUB_ENV"
 
       - name: Check if tag exists
         id: tag_check
@@ -70,6 +71,7 @@ jobs:
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131  # v7.0.0
         with:
           name: smindex-package
+          path: smindex-package
 
       - name: Extract package to dist
         run: |
@@ -98,12 +100,6 @@ jobs:
           asset_name: ${{ env.pkg }}
           asset_content_type: application/octet-stream
 
-      - name: Prepare Package for PyPI
-        run: |
-          mkdir -p dist
-          mv ${{ env.pkg }} dist/
-          ls -la dist
-
       - name: Publish Package to PyPI
         if: ${{ !inputs.test }} 
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
@@ -117,5 +113,5 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
 
