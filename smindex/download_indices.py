@@ -2,6 +2,7 @@ from ._globals import db, bindir
 from . import api
 from .convert_index_data import convert_index_data
 import numpy as np
+import os
 
 
 def download_indices(date: int, overwrite: bool = False, quiet: bool = False) -> np.recarray:
@@ -33,7 +34,8 @@ def download_indices(date: int, overwrite: bool = False, quiet: bool = False) ->
     json_data = api.request_indices(date)
     data = convert_index_data(json_data)
 
-    filename = f"{bindir}/smi_{date}.npy"
+    os.makedirs(bindir, exist_ok=True)
+    filename = os.path.join(bindir, f"smi_{date}.npy")
     np.save(filename, data)
 
     db.insert_date(date, filename)
