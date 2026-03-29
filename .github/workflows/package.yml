@@ -104,7 +104,11 @@ jobs:
         "@ | Set-Content -Path "$env:SMINDEX_PATH\config.json"
         .\env\Scripts\Activate.ps1
         pip install -r requirements.txt
-        pip install dist\smindex-*.whl
+        $wheel = Get-ChildItem -Path dist -Filter 'smindex-*.whl' | Select-Object -First 1
+        if (-not $wheel) {
+          throw 'No built wheel found in dist/'
+        }
+        pip install $wheel.FullName
         Set-Location tests
         pytest .
 
