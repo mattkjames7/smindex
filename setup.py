@@ -1,7 +1,7 @@
 import setuptools
 from get_version import get_version
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 
@@ -18,7 +18,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: POSIX",
+        "Operating System :: OS Independent",
     ],
     install_requires=[
         "numpy",

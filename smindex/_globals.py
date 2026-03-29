@@ -7,14 +7,14 @@ module_path = os.path.dirname(__file__)
 
 data_path = os.getenv("SMINDEX_PATH")
 if data_path is None:
-    data_path = f"{os.getenv("HOME")}/.smindex"
+    data_path = os.path.join(os.path.expanduser("~"), ".smindex")
     if not os.path.isdir(data_path):
         print(
             f"SMINDEX_PATH environment variable not set - using default path {data_path}"
         )
-        os.makedirs(data_path)
+        os.makedirs(data_path, exist_ok=True)
 
-config_file = f"{data_path}/config.json"
+config_file = os.path.join(data_path, "config.json")
 if os.path.isfile(config_file):
     warn = False
     with open(config_file, "r") as f:
@@ -24,22 +24,19 @@ else:
     with open(config_file, "w") as f:
         json.dump(config, f)
 
-dbfile = f"{data_path}/smindex.db"
+dbfile = os.path.join(data_path, "smindex.db")
 db = SMIDatabase(dbfile)
 
 # if this is successful - now check whether the subdirectories exist
-dlddir = f"{data_path}/download"
-bindir = f"{data_path}/binary"
-tmpdir = f"{data_path}/temp"
-subdir = f"{data_path}/substorms"
-if not os.path.isdir(dlddir):
-    os.system("mkdir -pv " + dlddir)
-if not os.path.isdir(bindir):
-    os.system("mkdir -pv " + bindir)
-if not os.path.isdir(tmpdir):
-    os.system("mkdir -pv " + tmpdir)
-if not os.path.isdir(subdir):
-    os.system("mkdir -pv " + subdir)
+dlddir = os.path.join(data_path, "download")
+bindir = os.path.join(data_path, "binary")
+tmpdir = os.path.join(data_path, "temp")
+subdir = os.path.join(data_path, "substorms")
+
+os.makedirs(dlddir, exist_ok=True)
+os.makedirs(bindir, exist_ok=True)
+os.makedirs(tmpdir, exist_ok=True)
+os.makedirs(subdir, exist_ok=True)
 
 # this is the data type for the recarray which will store the indices
 # The regional SME,SMU,SML indices are centred on a 3-hour MLT range
